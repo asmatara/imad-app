@@ -34,14 +34,35 @@ var nameInput = document.getElementById('name');
 var name = nameInput.value;
 var submit = document.getElementById('submit_btn');
 submit.onclick = function(){
-    //Make a request to server and send the name 
+     var request =new XMLHttpRequest();
+    
+    //Capture the Response and store it in a variable
+    request.onreadystatechange = function(){
+    // Process the server response here.
+    if (request.readyState === XMLHttpRequest.DONE) {
+    // Everything is good, the response was received.
+    if (request.status === 200) {
+    // Perfect!
+   //Make a request to server and send the name 
     //to caputure and render as a list 
-    var names = ['name1','name2','name3','name4'];
+    var names = request.responseText;
+    names = JSON.parse(names);
     var list = '';
     for (var i=0; i<names.length; i++){
         list += '<li>' + names[i] + '</li>'
     }
     var ul =document.getElementById('namelist');
     ul.innerHTML = list;
+} else {
+    // There was a problem with the request.
+    // For example, the response may have a 404 (Not Found)
+    // or 500 (Internal Server Error) response code.
+}
+} else {
+    // Not ready yet.
+}
+request.open('GET', 'http://asmatcareer.imad.hasura-app.io/submit-name?name='+name, true);
+request.send();
+};
 }
 
