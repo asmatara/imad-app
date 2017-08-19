@@ -16,7 +16,7 @@ img.onclick = function () {
 
 // Counter Code for Module P6: Practical: APIs and mobile apps use web-servers
 var button = document.getElementById('counter');
-var counter = 0;
+//var counter = 0;
 
 button.onclick = function () {
     // Make a Request object to the counter end point
