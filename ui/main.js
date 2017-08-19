@@ -40,6 +40,6 @@ button.onclick = function () {
    // span.innerHTML = counter.toString();
    
    // Make the Request
-    request.open('GET','http://http://asmatcareer.imad.hasura-app.io/counter',true);
+    request.open('GET','http://asmatcareer.imad.hasura-app.io/counter',true);
     request.send(null);
 }
