@@ -52,18 +52,13 @@ submit.onclick = function(){
     }
     var ul =document.getElementById('namelist');
     ul.innerHTML = list;
-} else {
-    // There was a problem with the request.
-    // For example, the response may have a 404 (Not Found)
-    // or 500 (Internal Server Error) response code.
-}
-} else {
+} 
+} 
     // Not ready yet.
-}
+    };    
 var nameInput = document.getElementById('name');
 var name = nameInput.value;
 request.open('GET', 'http://asmatcareer.imad.hasura-app.io/submit-name?name=' + name, true);
 request.send();
-};
 };
 
