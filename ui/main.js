@@ -19,13 +19,27 @@ var button = document.getElementById('counter');
 var counter = 0;
 
 button.onclick = function () {
-    // Make a Request to the counter end poing
-    
+    // Make a Request object to the counter end point
+    var request = new XMLHttprequest();
     
     //Capture the Response and store it in a variable
-    
-    // Render the variable in a correct span
-    counter = counter + 1;
-    var span = document.getElementById('count');
+    request.onreadystatechange = function() {
+        if (request.readyState === XMLHttprequest.DONE)
+        {//Take some action
+            if (request.status === 200) 
+            {
+                var counter = request.responseText;
+                 var span = document.getElementById('count');
     span.innerHTML = counter.toString();
+            }
+        }
+        // not 
+    }
+    // Render the variable in a correct span counter = counter + 1;
+   // var span = document.getElementById('count');
+   // span.innerHTML = counter.toString();
+   
+   // Make the Request
+    request.open('GET','http://http://asmatcareer.imad.hasura-app.io/counter',true);
+    request.send(null);
 }
