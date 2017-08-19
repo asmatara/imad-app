@@ -41,8 +41,8 @@ app.get('/ui/madi.png', function (req, res) {
 });
 
 var names=[];
-app.get('/submit-name/:name', function (req, res) {
- var name=req.params.name; // Get the name of the request
+app.get('/submit-name', function (req, res) { // URL: /submit-name?name=xxxx
+ var name=req.query.name; // Get the name of the request
  names.push(name);
  // JSON : Java Script Object notation converts javascript object into strings
  res.send(JSON.stringify(names)); // JSON converts array into srting
