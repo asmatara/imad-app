@@ -20,7 +20,7 @@ var button = document.getElementById('counter');
 
 button.onclick = function () {
     // Make a Request object to the counter end point
-    var request = new XMLHttprequest();
+    var request = new XMLHttpRequest();
     
     //Capture the Response and store it in a variable
     request.onreadystatechange = function() {
@@ -42,4 +42,4 @@ button.onclick = function () {
    // Make the Request
     request.open('GET','http://asmatcareer.imad.hasura-app.io/counter',true);
     request.send(null);
-}
+};
