@@ -10,7 +10,7 @@ var config = {
     port: '5432',
     password: process.env.DB_PASSWORD
 }
-
+//End Module P10: Connecting your webapp to your database & SQL Injection
 var app = express();
 app.use(morgan('combined'));
 
@@ -35,13 +35,25 @@ pool.query('SELECT * FROM test', function(err,result){
 });
 });
 
-var counter=0;
-app.get('/counter', function (req, res) {
-  counter = counter + 1;
-  res.send(counter.toString());
+
+app.get('articles/:articleName', function (req, res) {
+ pool.query("SELECT * FROM article WHERE title = " + req.params.articleName, function(err,result){
+     if (err) {
+        res.status(500).send(err.toString());
+    }
+    else {
+        if (result.rows.length === 0){
+            res.status(404).send('Article Not Found');
+        }
+        else {
+            var articleData = result.rows[0];
+            res.send(createTemplate(articleData));
+        }
+    }
+    
+ });
 });
-
-
+// End Module P10: Connecting your webapp to your database & SQL Injection
 app.get('/articleone', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'articleone.html'));
 });
