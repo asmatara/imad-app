@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 
 
 // Module P10: Connecting your webapp to your database & SQL Injection
-var Pool = new Pool(config);
+var pool = new Pool(config);
 app.get('/test-db', function (req, res) {
 // make a select request
 // return response with results
