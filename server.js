@@ -10,6 +10,42 @@ var config = {
     port: '5432',
     password: process.env.DB_PASSWORD
 }
+
+function createTemplate(data){
+    var title = data.title;
+    var date = data.date;
+    var heading = data.heading;
+    var content = data.content;
+    // While creating template use quotes with `` not with normal '' or ""
+    
+    var htmlTemplate = `<html>
+    <head>
+    <title>
+   ${title}
+    </title>
+    <meta name = "viewport" content ="width-device-width, initial-scale=1"/>
+<link href= "/ui/style.css" rel = "stylesheet"/>
+</head>
+<body>
+<div class = "container">
+<div>
+<a href = "/">Home </a>
+</div>
+<hr/>
+<h3>
+${heading}
+</h3>
+<div>
+${date}
+</div>
+<div>
+${content}
+</div>
+</div>
+</body>
+</html>`;
+return htmlTemplate;
+}
 //End Module P10: Connecting your webapp to your database & SQL Injection
 var app = express();
 app.use(morgan('combined'));
