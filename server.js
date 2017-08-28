@@ -73,7 +73,10 @@ pool.query('SELECT * FROM test', function(err,result){
 
 
 app.get('/articles/:articleName', function (req, res) {
- pool.query("SELECT * FROM article WHERE title = '" + req.params.articleName+"'", function(err,result){
+    // sometimes user gives in link delete condition so its better to use / or $ consider whole thing as parameter rather //than  sql string example : http://xxxxx.imad.hasura-app.io/articles/;delete from articles it will delete all the //data from table 
+    // pool.query("SELECT * FROM article WHERE title = '" + req.params.articleName+"'", function(err,result){
+    //comment and so for safer side use $ for paramters a below
+pool.query("SELECT * FROM article WHERE title = $1" , [req.params.articleName], function(err,result){
      if (err) {
         res.status(500).send(err.toString());
     }
