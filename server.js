@@ -30,7 +30,7 @@ pool.query('SELECT * FROM test', function(err,result){
     }
     else
     {
-        res.send(JSON.stringify(result));
+        res.send(JSON.stringify(result.rows));  // to get array of objects use result.rows instead of result
     }
 });
 });
