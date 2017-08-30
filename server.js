@@ -63,7 +63,8 @@ app.get('/', function (req, res) {
 function hash(input,salt)
 { // how do we create a hash https://nodejs.org/api/crypto//.html#crypto_crypto_pbkdf2_password_salt_iterations_keylen_digest_callback
 var hashed = crypto.pbkdf2Sync(input,salt,10000,512,'sha512'); // crypto.pbkdf2Sync(password, salt, iterations, keylen, digest)
-return hashed.toString('hex');
+//return hashed.toString('hex');  
+return["pbkdf2", "10000", salt, hashed.toString('hex')].join('$');
 }
 
 
