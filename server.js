@@ -92,8 +92,7 @@ res.send('User successfully created: ' + username);
 });
 });
 
-app.post('/login', function(req,res)
-{ //username, password
+app.post('/login', function(req,res) { //username, password
 // JSON
 var username =req.body.username;
 var password = req.body.password;
@@ -104,15 +103,14 @@ res.status(500).send (err.toString());
 } else {
 if (result.rows.length === 0 ) {
 res.send(403).send('username/password is invalid');
-}
-else
-{
+} else {
 var dbString = result.rows[0].password;
 var salt = dbString.split('$')[2];
 var hashedPassword = hash(password, salt); // Creating a hash based on the password submitted and the orignal salt
-if (hashedPassword === dbString)
-{res.send('credentials are correct');}
-else {res.send(403).send('credentials are not correct');
+if (hashedPassword === dbString) {
+res.send('credentials are correct');
+} else {
+res.send(403).send('credentials are not correct');
 }
 }
 }
