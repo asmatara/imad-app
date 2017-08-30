@@ -109,6 +109,7 @@ var salt = dbString.split('$')[2];
 var hashedPassword = hash(password, salt); // Creating a hash based on the password submitted and the orignal salt
 if (hashedPassword === dbString) {
 res.send('credentials are correct');
+res.send('Authorized Person to Access ');
 } else {
 res.send(403).send('credentials are not correct');
 }
