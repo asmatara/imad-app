@@ -14,6 +14,7 @@ var config = {
 
 //Module P11: Introduction to authentication, hashing, curl & sessions
 var crypto = require('crypto');
+var bodyParser = require('body-parser');  //Module P11: Introduction to authentication, hashing, curl & sessions
 
 function createTemplate(data){
     var title = data.title;
@@ -53,6 +54,7 @@ return htmlTemplate;
 //End Module P10: Connecting your webapp to your database & SQL Injection
 var app = express();
 app.use(morgan('combined'));
+app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
@@ -73,6 +75,24 @@ app.get('/hash/:input', function (req, res){
     var hashedString = hash(req.params.input,'this-is-some-random-string');
 res.send(hashedString);
 });
+
+app.post('/create-user', function(req,res)
+{ //username, password
+// JSON
+var username =req.body.username;
+var password = req.body.password;
+
+var salt= cryto.getRandomBytest(128).toString('hex');
+var dbString = hash(password,salt);
+pool.query('INSERT INTO "user" (username,password) VALUES ($1,$2)', [username,dbString], function (err,result) {
+if (err) {
+res.status(500).send (err.toString());
+} else {
+res.send('User successfully created: ' + username);
+}
+});
+});
+
 
 
 
