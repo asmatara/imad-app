@@ -11,6 +11,10 @@ var config = {
     password: process.env.DB_PASSWORD
 }
 
+
+//Module P11: Introduction to authentication, hashing, curl & sessions
+var crypto = require('crypto');
+
 function createTemplate(data){
     var title = data.title;
     var date = data.date;
@@ -53,6 +57,23 @@ app.use(morgan('combined'));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
+
+
+//Module P11: Introduction to authentication, hashing, curl & sessions
+function hash(input,salt)
+{ // how do we create a hash https://nodejs.org/api/crypto//.html#crypto_crypto_pbkdf2_password_salt_iterations_keylen_digest_callback
+var hashed = crypto.pbkdf2Sync(input,salt,10000,512,'sha512'); // crypto.pbkdf2Sync(password, salt, iterations, keylen, digest)
+return hashed.toString('hex');
+}
+
+
+
+app.get('/hash/:input', function (req, res){
+    var hashedString = hash(req.params.input,'this-is-some-random-string');
+res.send(hashedString);
+});
+
+
 
 
 // Module P10: Connecting your webapp to your database & SQL Injection
