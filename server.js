@@ -114,7 +114,12 @@ var dbString = result.rows[0].password;
 var salt = dbString.split('$')[2];
 var hashedPassword = hash(password, salt); // Creating a hash based on the password submitted and the orignal salt
 if (hashedPassword === dbString) {
+    // Set the session value initially
+    req.session.auth = {userId: result.rows[0].id}; // session middleware will set cookie with session id
+    // internally on server side will match the session id to an object
+    // contains auth will contain user id maintained on server side
 res.send('User'+username+'credentials are correct');
+
 //res.send('Authorized Person to Access ');
 } else {
 res.send(403).send('credentials are not correct');
@@ -122,6 +127,14 @@ res.send(403).send('credentials are not correct');
 }
 }
 });
+});
+
+app.get('/check-login',function(req,res) {
+if (req.session && req.session.auth && req.session.auth.userId) {
+res.send('You are Logged in this page : ' + req.session.auth.userId.toString());
+} else {
+res.send('You are not logged in this page ');
+}
 });
 
 
