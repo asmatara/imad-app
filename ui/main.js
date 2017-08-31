@@ -29,7 +29,7 @@ button.onclick = function () {
 request.send();
 };
 
-// Submit name
+// Submit username password
 
 var submit = document.getElementById('submit_btn');
 submit.onclick = function(){
