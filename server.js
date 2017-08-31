@@ -58,7 +58,8 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 //Module P11: Introduction to authentication, hashing, curl & sessions
 app.use(session({
-    secret
+    secret: 'someRandomSecretValue',
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 } // Set for 1 month
 }));
 
 app.get('/', function (req, res) {
