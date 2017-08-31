@@ -15,6 +15,7 @@ var config = {
 //Module P11: Introduction to authentication, hashing, curl & sessions
 var crypto = require('crypto');
 var bodyParser = require('body-parser');  //Module P11: Introduction to authentication, hashing, curl & sessions
+var session = require('express-session');
 
 function createTemplate(data){
     var title = data.title;
@@ -55,6 +56,10 @@ return htmlTemplate;
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
+//Module P11: Introduction to authentication, hashing, curl & sessions
+app.use(session({
+    secret
+}));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
